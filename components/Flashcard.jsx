@@ -5,6 +5,7 @@ const Flashcard = (props) => {
     const updateFlipped= () => {
         setFlipped(!flipped)
     }
+
     return(
         <div className={`FlashcardText ${props.color}`} onClick={updateFlipped}>
             <h3>{flipped ? props.description : props.title}</h3>

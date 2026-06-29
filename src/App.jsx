@@ -1,6 +1,7 @@
-import { use, useState } from 'react'
 import './App.css'
 import Flashcard from '../components/Flashcard'
+import Textbox from '../components/Textbox'
+import { useState } from 'react';
 
 const App = () => {
 const array = [
@@ -16,8 +17,28 @@ const array = [
   {title: "사람 (Saram)", description: "Person", color:"yellow"}, 
   {title: "대박 (Daebak)", description: "Awesome", color:"yellow"}];
 const [count, setCount] = useState(0);
+const [beginning, setBeginning] = useState(true);
+const [end, setEnd] = useState(false);
 const incrementCount = () => {
-  setCount(Math.floor(Math.random()*(array.length)));
+  if ((count+1) == (array.length-1)){
+    setCount(count+1);
+    setInputValue('');
+  }
+  else if ((count+1) < array.length){
+    setCount(count+1)
+    setInputValue('');
+  }
+}
+
+const decrementCount = () => {
+  if ((count-1)==0){
+    setCount(count-1);
+    setInputValue('');
+  }
+  else if((count-1) > 0){
+    setCount(count-1);
+    setInputValue('');
+  }
 }
 
 
@@ -34,10 +55,16 @@ const updateDescr = () => {
         <h3>Number of cards: {array.length}</h3>
       </div>
       <div className='Flashcard'>
-        <Flashcard title={array[count].title} description={array[count].description} color={array[count].color}/>
+        <Flashcard key={count} title={array[count].title} description={array[count].description} color={array[count].color}/>
+      </div>
+      <div>
+        <Textbox description={array[count].description} key={count}>
+        
+        </Textbox>
       </div>
       <div className='buttons'>
-        <button onClick={incrementCount}>Next</button>
+        <button onClick={decrementCount} className={(count==0) ? 'grey' : ''} disabled={(count==0)}>Back</button>
+        <button onClick={incrementCount} className={(count == array.length-1) ? 'grey' : ''} disabled={(count == array.length-1)}>Next</button>
       </div>
     </div>
   )
